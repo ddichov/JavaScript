@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LISTY</title>
+</head>
+<body onload="HandleSolveIO()">
+    <a onclick="HandleSolveIO()"> Test</a>
+    <script>
+        function Solve(args) {
+           
+            var arr = [];
+            var variables = {};
+            var comands = [];
+            var result ;
+
+            var argsLength = args.length;
+    
+            for (var i = 0; i < argsLength; i++) {
+
+                var ignoreLine = false;
+                var currLine = args[i].split('[');
+                //value
+                var cLineVal = currLine[1].split(/[\s,\]]/);
+                var tempVarVals = [];
+                cLineVal = RemoveEmptyValues(cLineVal);
+
+                var tempLvalues = [];
+                for (var j = 0; j < cLineVal.length; j++) {
+                    
+                    if (isNaN(cLineVal[j])) {   // // we have var ;
+                       
+                        if (!variables[cLineVal[j]]) {
+   
+                            ignoreLine = true;
+                            break; 
+                        }
+                        tempVarVals.push(variables[cLineVal[j]]);
+                    }
+                    else {
+
+                        tempLvalues.push( parseInt(cLineVal[j]));
+                    }
+                } 
+
+                if (!ignoreLine) {
+                    // add vars
+                    if (tempVarVals.length !== 0) {
+
+                        for (var m = 0; m < tempVarVals.length; m++) {
+                            if (!tempVarVals[m].length) {
+
+                                tempLvalues.push(tempVarVals[m])
+                            }
+                            else {
+
+                                for (var n = 0; n < tempVarVals[m].length; n++) {
+
+                                    tempLvalues.push(tempVarVals[m][n])
+                                }
+                            }
+                        }
+                    }
+
+                    //comands
+
+                    var comandLine = currLine[0];
+                    var defIndex = comandLine.indexOf("def");
+                    var temp = comandLine.split(' ');
+                    var haveVar = false;
+                    var nameVar = "";
+
+                    var tempResult = tempLvalues;
+
+                    if (currLine[0].length!==0) {
+                        temp = RemoveEmptyValues(temp);
+
+                        for (var k = 0; k < temp.length; k++) {
+                          
+                            if (temp[k] === "def") {
+                                haveVar = true;
+                            } else if (temp[k] === "sum") {
+                                tempResult = Sum(tempLvalues);
+                            } else if (temp[k] === "min") {
+                                tempResult = Min(tempLvalues);
+                            } else if (temp[k] === "max") {
+                                tempResult = Max(tempLvalues);
+                            } else if (temp[k] === "avg") {
+                                tempResult = Avg(tempLvalues);
+                            } else if (temp[k] !== "def") {
+                                nameVar = temp[k];
+                            } 
+                          
+                        }
+
+                        result = tempResult;
+                        if (haveVar) {
+
+                            variables[nameVar] = tempResult; // add var to variables
+                        }
+                    }
+                }
+            } 
+
+            return result;
+        }
+
+        function RemoveEmptyValues(arr) {
+            var res = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] != "") {
+                    res.push(arr[i]);
+                }
+            }
+            return res;
+        }
+
+        function Sum(val) {
+            var res = 0;
+            for (var i = 0; i < val.length; i++) {
+                 res += val[i];
+            }
+            return res;
+        }
+        function Avg(val) {
+            var res =( Sum(val) )/ (val.length);
+            return parseInt(res);
+        }
+       
+        function Min(val) {
+            var res = val.sort(function orderBy(a, b) { return (a == b) ? 0 : (a > b) ? 1 : -1 })
+            
+            return res[0];
+        }
+        function Max(val) {
+            var res = val.sort(function orderBy(a, b) { return (a == b) ? 0 : (a > b) ? 1 : -1 })
+            return res[val.length-1];
+        }
+
+
+        
+
+        function HandleSolveIO() {
+            var args = [];          
+            args = ['def func sum[5, 3, 7, 2, 6, 3]',
+                    'def func2 [5, 3, 7, 2, 6, 3]',
+                    'def func3 min[func2]',
+                    'def func4 max[5, 3, 7, 2, 6, 3]',
+                    'def func5 avg[5, 3, 7, 2, 6, 3]',
+                    'def func6 sum[func2, func3, func4 ]',
+                    'sum[func6, func4]'];
+
+            //args = [ 'def func sum[1, 2, 3, -6]',
+            //'def newList [func, 10, 1]',
+            //'def newFunc sum[func, 100, newList]',
+            //'[newFunc]' ];
+
+            console.log(Solve(args)); //
+            Solve(args);
+        }
+
+    </script>
+</body>
+</html>

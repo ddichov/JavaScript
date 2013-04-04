@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>MaxSum</title>
+</head>
+<body onload="HandleSolveIO()">
+    <a onclick="HandleSolveIO()"> Test</a>
+
+    <script>
+
+        function Solve(args) {
+         
+            var nums = [];
+            var arrayLength = parseInt(args[0]);
+          
+            for (var i = 0; i < arrayLength; i++) {
+                nums[i] = parseInt(args[i+1]);
+            }
+
+            var currentSum = 0;
+            var bestSum = nums[0];
+
+
+            for (var i = 0; i < arrayLength; i++)
+            {
+                currentSum += nums[i];
+    
+                if (currentSum > bestSum) {
+
+                    bestSum = currentSum;
+                }
+
+                if (currentSum < 0) {
+                    currentSum = 0;
+                }
+            }
+           
+            return bestSum;
+    
+        }
+
+
+       
+
+        function HandleSolveIO() {
+            var args = [];          
+            args = ["8", "1", "6", "-9", "4", "4", "-2", "10", "-1"];
+           // args = ["6", "1", "3", "-5", "8", "7", "-6"];
+           // args = ["9", "-9", "-8", "-8", "-7", "-6", "-5", "-1",  "-7", "-6"];
+           
+            console.log(Solve(args)); 
+            Solve(args);
+        }
+
+    </script>
+</body>
+</html>
