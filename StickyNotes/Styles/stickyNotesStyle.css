@@ -1,0 +1,222 @@
+﻿html,body {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    /*font-family: "Reenie Beanie",'Comic Sans MS',arial,sans-serif;*/
+    font-family: 'Comic Sans MS',"Reenie Beanie",Textile,cursive;
+    color: black;
+}
+
+.audio {
+    display:none;
+    visibility:hidden
+}
+
+.sticky-note {
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    cursor: move;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: url(../images/gradient3.png) repeat-x scroll 0 0;
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    z-index: 0;
+}
+
+
+#container {
+	
+}
+
+#sticky-container {
+	height:100%;
+    position: relative;
+    background:url(../images/bg_wood.jpg) repeat-x scroll 0 0;	
+}
+
+#add_note_btn {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 4px;
+    padding: 20px 10px 35px 5px;
+    outline: 0 none;
+    border-style: none;
+    border-color: transparent;
+    font-weight: bold;
+    color: transparent;
+    background: url(../images/notes.png) no-repeat top left;
+    background-size: contain;
+    background-color: transparent;
+}
+
+    #add_note_btn:hover {
+        color: #529214;
+        text-shadow: #fff 0px 1px 0, #000 0 -1px 0;
+    }
+
+.note-input, .note-textarea {
+    width: 90%;
+    float: left;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
+    outline: 0 none;
+    border: none;
+    font-size: 16px;
+    color: #444;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.note-input {
+    margin-top: 10px;
+}
+
+    #sticky-container h2, #sticky-container p {
+        min-height: 12px;
+        padding: 5px 5px 5px 10px;
+        display: block;
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+
+    #sticky-container h2 {
+        margin:10px 1px 1px 1px; 
+        text-align: center;
+        font-size: 16px;
+    }
+
+    #sticky-container p {
+        margin: 0;
+        font-size: 14px;
+        color: #444;
+    }
+
+.ui-resizable-handle, .ui-resizable-e, .ui-resizable-s {
+    background-color: transparent;
+}
+
+.medium, .small {
+    width: 160px;
+    position: absolute;
+    background-color: #ffff00;
+    z-index: 999999;
+    -moz-box-shadow: -5px 10px 7px rgba(33,33,33,1);        /* Firefox */
+    -webkit-box-shadow: -5px 10px 7px rgba(33,33,33,.7);    /* Safari+Chrome */
+    box-shadow: -5px 10px 7px rgba(33,33,33,.7);            /* Opera */
+}
+
+.small {
+	height:50px;
+}
+
+@-webkit-keyframes heightframe /* Safari and Chrome */
+{
+from {height:162px;}
+to {height:161px;}
+}
+
+@keyframes heightframe
+{
+from {height:162px;}
+to {height:161px;}
+}
+
+.medium {
+    height:162px;
+
+    animation-name: heightframe;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-delay: 5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+
+    /* Safari and Chrome: */
+    -webkit-animation-name: heightframe;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-play-state: running;
+}
+
+.moved {
+    -webkit-perspective: 500px;
+    perspective: 500px;
+}
+
+    .moved :first-Child {
+        -webkit-transform-origin: top left;
+        -webkit-transform: rotateX(8deg);
+        transform-origin: top left;
+        transform: rotateX(8deg);
+    }
+
+.sticky-btn-delete, .sticky-btn-min, .sticky-btn-max, .sticky-btn-color {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: -15px;
+    right:0px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.sticky-btn-delete:hover, .sticky-btn-min:hover, .sticky-btn-max:hover, .sticky-btn-color:hover{
+    opacity:1;
+}
+
+.sticky-btn-color {
+    width: 12px;
+    height: 12px;
+    left:0px;
+    margin: 0;
+    padding: 0px;
+    background-color: #999;
+}
+
+.sticky-btn-delete[class]{
+	background:transparent url(../images/delete.png) no-repeat top left;
+}
+
+* .sticky-btn-delete{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/delete.png');
+}
+
+.sticky-btn-max[class]{
+	background:transparent url(../images/maximize.png) no-repeat top left;
+     margin-right:15px;
+}
+
+* .sticky-btn-max {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/maximize.png');
+    margin-right: 15px;
+} 
+
+.sticky-btn-min[class]{
+	background:transparent url(../images/minimize.png) no-repeat top left;
+    margin-right:30px;
+}
+
+* .sticky-btn-min{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/minimize.png');
+     margin-right:30px;
+}

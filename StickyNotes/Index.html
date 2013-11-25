@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sticky Notes</title>
+
+    <script src="Scripts/jquery-ui/js/jquery-1.9.1.js"></script>
+    <script src="Scripts/jquery-ui/js/jquery-ui-1.10.3.custom.js"></script>
+    <script src="Scripts/app/stickynotes.js"></script>
+
+    <link href="Scripts/jquery-ui/css/ui-lightness/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" />
+    <link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css"> 
+    <link href="Styles/stickyNotesStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrapper">
+        <!--<header>
+            <h3>Sticky Notes</h3>
+        </header>-->
+        <div id="container" style="height:500px;">
+        </div>
+    </div>
+    <div>
+        <audio controls="controls" id="rip" class="audio">
+            <source src="audio/ripping1.mp3" type="audio/mpeg" />
+        </audio>
+        <audio controls="controls" id="slide" class="audio">
+            <source src="audio/slide.mp3" type="audio/mpeg" />
+        </audio>
+        <audio controls="controls" id="trash" class="audio">
+            <source src="audio/trash.mp3" type="audio/mpeg" />
+        </audio>
+        <audio controls="controls" id="shrink" class="audio">
+            <source src="audio/min_max.mp3" type="audio/mpeg" />
+        </audio>
+    </div>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            var options = {
+                notes: [],
+                resizable: true,
+                controls: true,
+                saveState: true,
+                editCallback: false,
+                createCallback: false,
+                deleteCallback: false,
+                moveCallback: false,
+                resizeCallback: false,
+                changeColorCallback: false,
+                minimizeCallback: false,
+                maximizeCallback: false,
+            };
+            jQuery("#container").stickyNotes(options);
+        });
+    </script>
+</body>
+</html>
