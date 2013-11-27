@@ -39,13 +39,13 @@ body {
 
 
 #container {
-	
+    
 }
 
 #sticky-container {
-	height:100%;
+    height:100%;
     position: relative;
-    background:url(../images/bg_wood.jpg) repeat-x scroll 0 0;	
+    background:url(../images/bg_wood.jpg) repeat-x scroll 0 0;    
 }
 
 #add_note_btn {
@@ -121,7 +121,7 @@ body {
 }
 
 .small {
-	height:50px;
+    height:50px;
 }
 
 @-webkit-keyframes heightframe /* Safari and Chrome */
@@ -194,7 +194,7 @@ to {height:161px;}
 }
 
 .sticky-btn-delete[class]{
-	background:transparent url(../images/delete.png) no-repeat top left;
+    background:transparent url(../images/delete.png) no-repeat top left;
 }
 
 * .sticky-btn-delete{
@@ -202,7 +202,7 @@ to {height:161px;}
 }
 
 .sticky-btn-max[class]{
-	background:transparent url(../images/maximize.png) no-repeat top left;
+    background:transparent url(../images/maximize.png) no-repeat top left;
      margin-right:15px;
 }
 
@@ -212,7 +212,7 @@ to {height:161px;}
 } 
 
 .sticky-btn-min[class]{
-	background:transparent url(../images/minimize.png) no-repeat top left;
+    background:transparent url(../images/minimize.png) no-repeat top left;
     margin-right:30px;
 }
 
