@@ -1,0 +1,74 @@
+﻿
+
+.medium {
+
+}
+.sticky-label {
+    position: relative;
+   /*  width: 100%;
+    height: 90%; */
+    left: 0px;
+    top: 0px;
+    cursor: move;
+    overflow: hidden;
+    z-index: 2;
+    
+    border: 2px solid #909090;
+    border-radius: 4px;
+    width: 88%;
+    height: 86%;
+    margin-top: 14%;
+    margin-left: 4%;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background: url(frame.png) no-repeat no-repeat 50% 0;
+    background-size: cover;
+    background-origin: border-box;
+    z-index: 0;
+}
+
+.background::before{
+   position: absolute;
+    content: "";
+    width: 2px;
+    height: 2px;
+    border: 8px solid #909090;
+    border-color: transparent transparent #909090 transparent;
+    top: 3px;
+    left: 50%;
+    margin-left: -9px;
+}
+
+#sticky-container {
+	height:100%;
+    position: relative;
+    background-color: #f1f1f1;
+}
+
+    #sticky-container h2, #sticky-container p {
+        min-height: 12px;
+        padding: 1px 5px 0px 10px;
+        display: block;
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+
+    #sticky-container h2 {
+        margin:5px 1px 1px 1px;
+        color: #529214;        
+        font-size: 16px;
+        text-align: center;
+        text-shadow: #fff 0px 1px 0, #000 0 -1px 0;
+    }
+
+    #sticky-container p {
+        margin: 0;
+        font-size: 14px;
+        color: #444;
+    }

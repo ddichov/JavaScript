@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Arrange Label</title>
+    <script src="arrangelabels/jquery-1.9.1.js"></script>
+    <script src="arrangelabels/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="arrangelabels/arrangelabels.js"></script>
+    <link href="arrangelabels/arrangeLabelsStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <h3>Arrange Label Example</h3>
+        </header>
+        
+        <div id="container" style="height:500px;"></div>
+        
+        <button id='forwardbutton'>forwardbutton</button>
+    </div>
+    
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+        
+            var options = {
+                labels: [
+                    'Q1 Lorem ipsum dolor sit amet, suspendisse quisque et velit eu integer, vulputate blandit erat orci taciti turpis nulla, tincidunt corporis urna urna mauris nunc. ',
+                    'Q2 Lorem ipsum dolor sit amet, suspendisse quisque et velit eu integer, vulputate blandit erat orci taciti turpis nulla, tincidunt corporis urna urna mauris nunc. ',
+                    'Q3 some text here!'],
+                shuffle: true,
+                labelCustomClass: ' clas_1',
+                scale_min: 100,
+                scale_max: 590,
+                scale_step: 10,
+                next_button_id: 'forwardbutton',
+                onCompleteCallback: poceedResults,
+                moveCallback: false,
+            };
+            jQuery("#container").arrangeLabels(options);
+            
+            function poceedResults( result_arr ) {
+                console.log(result_arr);
+            };
+        });
+    </script>
+</body>
+</html>
