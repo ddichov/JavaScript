@@ -2,21 +2,21 @@
 <html>
 <head>
     <title>Arrange Label</title>
-    <script src="arrangelabels/jquery-1.9.1.js"></script>
-    <script src="arrangelabels/jquery-ui-1.10.3.custom.min.js"></script>
+   <!--  <script src="arrangelabels/jquery-1.9.1.js"></script> -->
+   <!--  <script src="arrangelabels/jquery-ui-1.10.3.custom.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
     <script src="arrangelabels/arrangelabels.js"></script>
-    <link href="arrangelabels/arrangeLabelsStyle.css" rel="stylesheet" />
+    <link href="arrangelabels/arrangelabels_style.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="wrapper">
-        <header>
-            <h3>Arrange Label Example</h3>
-        </header>
-        
-        <div id="container" style="height:500px;"></div>
-        
-        <button id='forwardbutton'>forwardbutton</button>
-    </div>
+    <header>
+        <h3>Arrange Label Example</h3>
+    </header>
+    
+    <div id="container" style="height:400px;"></div>
+    
+    <button id='forwardbutton'>forwardbutton</button>
     
     <script type="text/javascript">
         jQuery(document).ready(function () {
@@ -28,16 +28,16 @@
                     'Q3 some text here!'],
                 shuffle: true,
                 labelCustomClass: ' clas_1',
-                scale_min: 100,
-                scale_max: 590,
-                scale_step: 10,
+                scale_min: 0,
+                scale_max: 100,
+                scale_step: 1,
                 next_button_id: 'forwardbutton',
-                onCompleteCallback: poceedResults,
-                moveCallback: false,
+                onCompleteCallback: proceedResults,
+                moveCallback: false
             };
             jQuery("#container").arrangeLabels(options);
             
-            function poceedResults( result_arr ) {
+            function proceedResults( result_arr ) {
                 console.log(result_arr);
             };
         });

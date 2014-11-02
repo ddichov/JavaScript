@@ -47,13 +47,15 @@
         var scale = jQuery("#scale");
         var h_line = jQuery("<hr/>");
         var range = 0, i = 0 , j = 0;
-        var div = jQuery("<div></div>").css({
+        var div = jQuery("<div></div>");
+        div.css({
             'position': 'absolute',
             '-moz-box-sizing': 'border-box',
             '-webkit-box-sizing': 'border-box',
             'box-sizing': 'border-box',
-            'height': 10 + 'px',
+            'height': '10px'
         });
+        
         scale.html("");
         scale.append(h_line);
         
@@ -130,7 +132,7 @@
                 c3_multipl = 7;
             }
             
-            if(((_scale.end_val - _scale.start_val + 1) / _scale_step + 1) >100){
+            if(((_scale.end_val - _scale.start_val + 1) / _scale_step + 1) >200){
                 c3_multipl *= 10;
             }
             c3_step =_scale_step*c3_multipl;
@@ -152,9 +154,9 @@
             '-webkit-box-sizing': 'border-box',
             'box-sizing': 'border-box',
             'width': (_scale.end_X - _scale.start_X),
-            'height': 40 + 'px',
+            'height': '40px',
             'margin': '0 auto',
-            "background-color": '#f1f1f1',
+            "background-color": '#f1f1f1'
         });
         
         h_line.css({
@@ -162,11 +164,11 @@
             '-moz-box-sizing': 'border-box',
             '-webkit-box-sizing': 'border-box',
             'box-sizing': 'border-box',
-            'width': (_scale.width + 2) + "px",
-            'height': 10 + 'px',
+            'width': "" + (_scale.width + 2) + "px",
+            'height': '10px',
             'margin': '0 auto',
             'background-color': 'gray',
-            'bottom': '0',
+            'bottom': '0'
         });
         
         jQuery.each(_labels, function (index, label) {
@@ -188,7 +190,7 @@
                     "pos_x": def.pos_x,
                     "pos_y": def.pos_y,
                     "width": def.width,
-                    "height": def.height,
+                    "height": def.height
                 }
                 _labels.push(label);
             }
@@ -239,7 +241,7 @@
                                 'float': 'left',
                                 'width': label.width,
                                 'height': _label_height,
-                                "z-index": label.z,
+                                "z-index": label.z
                             })
                             .attr("id", "label-" + label.id)
                             .append(_div_background)
@@ -364,7 +366,7 @@
         scale_step: 1,
         next_button_id: 'forwardbutton',
         onCompleteCallback: false,
-        moveCallback: false,
+        moveCallback: false
     };
     
     jQuery.fn.arrangeLabels.options = null;
