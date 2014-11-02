@@ -8,7 +8,7 @@
    /*  width: 100%;
     height: 90%; */
     left: 0px;
-    top: 0px;
+    top: 20px;
     cursor: move;
     overflow: hidden;
     z-index: 2;
@@ -17,7 +17,7 @@
     border-radius: 4px;
     width: 88%;
     height: 86%;
-    margin-top: 14%;
+    margin-top: 0;
     margin-left: 4%;
 }
 

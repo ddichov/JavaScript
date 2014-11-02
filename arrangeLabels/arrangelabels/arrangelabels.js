@@ -87,7 +87,7 @@
             for( i =_scale.start_val, j = 0; i<= _scale.end_val; i+=_scale_step ) {
                  scale.append( 
                     div.clone().text(i).css({'left': j * _scale.factor + 'px' })
-                    .append( div.clone().css({ 'border-left': '1px solid black'}))
+                    .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px'}))
                 );
                 j += 1;
             }
@@ -112,7 +112,7 @@
             for( i =_scale.start_val, j = 0; i <= _scale.end_val; i += c2_step ) {
                  scale.append( 
                     div.clone().text(i).css({'left': j * _scale.factor * c2_multipl + 'px' })
-                    .append( div.clone().css({ 'border-left': '1px solid black'}))
+                    .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px' }))
                 );
                 j += 1;
             }
@@ -140,7 +140,7 @@
             for( i = _scale.start_val, j = 0; i <= _scale.end_val; i += c3_step ) {
                 scale.append( 
                     div.clone().text(i).css({'left': j * _scale.factor * c3_multipl + 'px' })
-                    .append( div.clone().css({ 'border-left': '1px solid black'}))
+                    .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px'}))
                 );
                 j += 1;
             } 
