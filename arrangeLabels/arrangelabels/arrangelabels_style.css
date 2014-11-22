@@ -66,6 +66,9 @@
         text-align: center;
         text-shadow: #fff 0px 1px 0, #000 0 -1px 0;
     }
+    #sticky-container.no-h2 h2 {
+      visibility: hidden;
+    }
 
     #sticky-container p {
         margin: 0;

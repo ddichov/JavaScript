@@ -6,7 +6,7 @@
     def.width = 150;
     _scale.start_val = 0;   
     _scale.end_val = 10;  
-    _scale.start_X = def.width;
+    _scale.start_X = def.width / 2;
     _scale.end_X = 480;         //px  
     _scale.factor = 46;         //px
     
@@ -32,7 +32,11 @@
     };
 
     jQuery.fn.arrangeLabels.prepareContainer = function (container) {
-        jQuery(container).html('<div id="sticky-container" class="sticky-container"><div id="scale"></div></div>');
+        if( jQuery.fn.arrangeLabels.options.hideLabelsValue ){
+            jQuery(container).html('<div id="sticky-container" class="sticky-container no-h2"><div id="scale"></div></div>');
+        }else{
+            jQuery(container).html('<div id="sticky-container" class="sticky-container"><div id="scale"></div></div>');
+        }
 
         ////EVENTS
         jQuery("#" + jQuery.fn.arrangeLabels.options.next_button_id).click( jQuery.fn.arrangeLabels.onComplete );
@@ -58,7 +62,6 @@
         
         scale.html("");
         scale.append(h_line);
-        
         _scale.end_X = stiky_container.css("width").replace(/px/, "") - _scale.start_X;
         
         if (jQuery.fn.arrangeLabels.options.scale_min <= jQuery.fn.arrangeLabels.options.scale_max){
@@ -71,7 +74,6 @@
         _scale_step = parseInt(jQuery.fn.arrangeLabels.options.scale_step);
         range = _scale.end_val - _scale.start_val;
         if (range % _scale_step !== 0 ){
-            // alert("ERROR: arrangeLabels Step is not applicable to the scale!");
             throw "ERROR: Step is not applicable to the scale!";
             return false;
         }
@@ -82,70 +84,85 @@
             _scale_step *= 2;
             _scale.factor = Math.floor((_scale.end_X - _scale.start_X) / ((_scale.end_val - _scale.start_val + 1) / _scale_step + 1));
         }
-
-        if(_scale.factor >= 25){
-            for( i =_scale.start_val, j = 0; i<= _scale.end_val; i+=_scale_step ) {
-                 scale.append( 
-                    div.clone().text(i).css({'left': j * _scale.factor + 'px' })
-                    .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px'}))
-                );
-                j += 1;
+        
+        if( jQuery.fn.arrangeLabels.options.simplifyScale ){
+            j = (_scale.end_val - _scale.start_val) / _scale_step;
+            var min_txt = _scale.start_val, max_txt = _scale.end_val;
+            if( !!jQuery.fn.arrangeLabels.options.scale_min_text && jQuery.fn.arrangeLabels.options.scale_min_text != ""){
+                min_txt = jQuery.fn.arrangeLabels.options.scale_min_text;
             }
-            _scale.width = Math.floor((j-1) * _scale.factor);
-            
-        }else if(_scale.factor >= 8){
-            var c2_step =_scale_step;
-            var c2_multipl = 1;
-            if(range%(_scale_step*5) === 0){
-                c2_multipl = 5;
-            }else if(range%(_scale_step*4) === 0){
-                c2_multipl = 4;
-            }else if(range%(_scale_step*3) === 0){
-                c2_multipl = 3;
-            }else {
-                c2_multipl = 2;
+            if( !!jQuery.fn.arrangeLabels.options.scale_max_text && jQuery.fn.arrangeLabels.options.scale_max_text != ""){
+                max_txt = jQuery.fn.arrangeLabels.options.scale_max_text;
             }
-            if(_scale.factor * c2_multipl < 40){
-            c2_multipl *= 2;
-            }
-            c2_step = _scale_step*c2_multipl;
-            for( i =_scale.start_val, j = 0; i <= _scale.end_val; i += c2_step ) {
-                 scale.append( 
-                    div.clone().text(i).css({'left': j * _scale.factor * c2_multipl + 'px' })
-                    .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px' }))
-                );
-                j += 1;
-            }
-             _scale.width = Math.floor( (j-1 + (_scale.end_val - (i - c2_step))/c2_step) * _scale.factor * c2_multipl );
-           
+            scale.append( 
+                div.clone().text(min_txt).css({'left':  '0px' })
+                .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px'}))
+            );
+            scale.append( 
+                div.clone().text(max_txt).css({'left': j * _scale.factor + 'px' })
+                .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px'}))
+            );
+            _scale.width = Math.floor(j * _scale.factor);
         }else {
-            var c3_step = _scale_step;
-            var c3_multipl = 6;
-            
-            if(range%(_scale_step*10) === 0){
-                c3_multipl = 10;
-            }else if(range%(_scale_step*9) === 0){
-                c3_multipl = 9;
-            }else if(range%(_scale_step*8) === 0){
-                c3_multipl = 8;
-            }else if(range%(_scale_step*7) === 0){
-                c3_multipl = 7;
-            }
-            
-            if(((_scale.end_val - _scale.start_val + 1) / _scale_step + 1) >200){
-                c3_multipl *= 10;
-            }
-            c3_step =_scale_step*c3_multipl;
+            if(_scale.factor >= 25){
+                for( i =_scale.start_val, j = 0; i <= _scale.end_val; i += _scale_step ) {
+                    scale.append( 
+                        div.clone().text(i).css({'left': j * _scale.factor + 'px' })
+                        .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px'}))
+                    );
+                    j += 1;
+                }
+                _scale.width = Math.floor((j-1) * _scale.factor);   
+            }else if(_scale.factor >= 8){
+                var c2_step =_scale_step;
+                var c2_multipl = 1;
+                if(range%(_scale_step*5) === 0){
+                    c2_multipl = 5;
+                }else if(range%(_scale_step*4) === 0){
+                    c2_multipl = 4;
+                }else if(range%(_scale_step*3) === 0){
+                    c2_multipl = 3;
+                }else {
+                    c2_multipl = 2;
+                }
+                if(_scale.factor * c2_multipl < 40){
+                c2_multipl *= 2;
+                }
+                c2_step = _scale_step*c2_multipl;
+                for( i =_scale.start_val, j = 0; i <= _scale.end_val; i += c2_step ) {
+                    scale.append( 
+                        div.clone().text(i).css({'left': j * _scale.factor * c2_multipl + 'px' })
+                        .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px' }))
+                    );
+                    j += 1;
+                }
+                _scale.width = Math.floor( (j-1 + (_scale.end_val - (i - c2_step))/c2_step) * _scale.factor * c2_multipl );
+            }else {
+                var c3_step = _scale_step;
+                var c3_multipl = 6;
+                if(range%(_scale_step*10) === 0){
+                    c3_multipl = 10;
+                }else if(range%(_scale_step*9) === 0){
+                    c3_multipl = 9;
+                }else if(range%(_scale_step*8) === 0){
+                    c3_multipl = 8;
+                }else if(range%(_scale_step*7) === 0){
+                    c3_multipl = 7;
+                }
+                if(((_scale.end_val - _scale.start_val + 1) / _scale_step + 1) >200){
+                    c3_multipl *= 10;
+                }
+                c3_step =_scale_step*c3_multipl;
 
-            for( i = _scale.start_val, j = 0; i <= _scale.end_val; i += c3_step ) {
-                scale.append( 
-                    div.clone().text(i).css({'left': j * _scale.factor * c3_multipl + 'px' })
-                    .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px'}))
-                );
-                j += 1;
-            } 
-
-            _scale.width = Math.floor( (j-1 + (_scale.end_val - (i - c3_step))/c3_step) * _scale.factor * c3_multipl ); 
+                for( i = _scale.start_val, j = 0; i <= _scale.end_val; i += c3_step ) {
+                    scale.append( 
+                        div.clone().text(i).css({'left': j * _scale.factor * c3_multipl + 'px' })
+                        .append( div.clone().css({ 'border-left': '1px solid black', 'left':'0', 'top':'16px'}))
+                    );
+                    j += 1;
+                }
+                _scale.width = Math.floor( (j-1 + (_scale.end_val - (i - c3_step))/c3_step) * _scale.factor * c3_multipl ); 
+            }
         }
         
         scale.css({
@@ -174,7 +191,7 @@
         jQuery.each(_labels, function (index, label) {
             if(!(label.value === null || label.value === undefined)){
                 var div_wrap = jQuery("#label-" + label.id);
-                label.pos_x   = ((label.value -_scale.start_val)/_scale_step)*_scale.factor - (def.width/2) + _scale.start_X   ;
+                label.pos_x   = ((label.value -_scale.start_val)/_scale_step)*_scale.factor - (def.width/2) + _scale.start_X;
                 div_wrap.css("left", label.pos_x + "px" );
             }
         });   
@@ -299,7 +316,6 @@
                 _counter++; // New Answer
             }
             label.pos_y = 25;
-            // label.value = parseInt((label.pos_x + (def.width/2) - _scale.start_X ) / _scale.factor )*_scale_step + _scale.start_val; 
             label.value = Math.floor((label.pos_x + (def.width/2) - _scale.start_X ) / _scale.factor )*_scale_step + _scale.start_val; 
             
             if(label.value >= _scale.start_val && label.value <= _scale.end_val){
@@ -308,7 +324,6 @@
             }else{
                 jQuery.fn.arrangeLabels.reset(label, div_wrap);
             }
-            
         }else{
             jQuery.fn.arrangeLabels.reset(label, div_wrap);
         }
@@ -360,13 +375,17 @@
     jQuery.fn.arrangeLabels.defaults = {
         labels: [],
         shuffle: true,
-        labelCustomClass: '',
-        scale_min: 0,
-        scale_max: 10,
-        scale_step: 1,
-        next_button_id: 'forwardbutton',
-        onCompleteCallback: false,
-        moveCallback: false
+        labelCustomClass:   '',
+        hideLabelsValue:    false,
+        simplifyScale:      false,
+        scale_min_text:     false,  // string
+        scale_max_text:     false,  // string
+        scale_min:    0,
+        scale_max:   10,
+        scale_step:   1,
+        next_button_id:     'forwardbutton', // string
+        onCompleteCallback: false,  // function
+        moveCallback:       false   // function
     };
     
     jQuery.fn.arrangeLabels.options = null;

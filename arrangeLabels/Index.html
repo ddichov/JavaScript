@@ -26,14 +26,18 @@
                     'Q1 Lorem ipsum dolor sit amet, suspendisse quisque et velit eu integer, vulputate blandit erat orci taciti turpis nulla, tincidunt corporis urna urna mauris nunc. ',
                     'Q2 Lorem ipsum dolor sit amet, suspendisse quisque et velit eu integer, vulputate blandit erat orci taciti turpis nulla, tincidunt corporis urna urna mauris nunc. ',
                     'Q3 some text here!'],
-                shuffle: true,
-                labelCustomClass: ' clas_1',
-                scale_min: 0,
-                scale_max: 100,
-                scale_step: 1,
-                next_button_id: 'forwardbutton',
-                onCompleteCallback: proceedResults,
-                moveCallback: false
+                shuffle:            true,             // false, true
+                labelCustomClass:   'clas_1',         // false, string
+                hideLabelsValue:    false,            // false, true
+                simplifyScale:      false,            // false, true
+                scale_min_text:     'min',            // false, string ( if simplifyScale == true )
+                scale_max_text:     'max',            // false, string ( if simplifyScale == true )
+                scale_min:          0,                // integer
+                scale_max:          100,              // integer
+                scale_step:         1,                // integer
+                next_button_id:     'forwardbutton',  // string
+                onCompleteCallback: proceedResults,   // function, false
+                moveCallback:       false             // function, false
             };
             jQuery("#container").arrangeLabels(options);
             
