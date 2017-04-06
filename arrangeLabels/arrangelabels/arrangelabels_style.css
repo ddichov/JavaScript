@@ -75,3 +75,13 @@
         font-size: 14px;
         color: #444;
     }
+#sticky-container.touch_device {
+	overflow: hidden;
+	max-width: 100%;	
+}
+#sticky-container.touch_device .background {
+	background: none;
+}
+#sticky-container.touch_device .sticky-label {
+	background: #fff;
+}
