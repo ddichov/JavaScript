@@ -9,13 +9,43 @@
     _scale.start_X = def.width / 2;
     _scale.end_X = 480;         //px  
     _scale.factor = 46;         //px
-    
+    	
+    function isTouchDevice() {
+        return 'ontouchstart' in window //  most browsers 
+        || navigator.maxTouchPoints;    //  IE10/11 and Surface
+    }
+	
+    function touchHandler(event) {
+        var touch = event.changedTouches[0];
+        var simulatedEvent = document.createEvent("MouseEvent");
+            simulatedEvent.initMouseEvent({
+            touchstart: "mousedown",
+            touchmove: "mousemove",
+            touchend: "mouseup"
+        }[event.type], true, true, window, 1,
+            touch.screenX, touch.screenY,
+            touch.clientX, touch.clientY, false,
+            false, false, false, 0, null);
+
+        touch.target.dispatchEvent(simulatedEvent);
+        event.preventDefault();
+    }
+
+    function initTouchHandler() {
+        document.getElementById('sticky-container').addEventListener("touchstart", touchHandler, true);
+        document.getElementById('sticky-container').addEventListener("touchmove", touchHandler, true);
+        document.getElementById('sticky-container').addEventListener("touchend", touchHandler, true);
+        document.getElementById('sticky-container').addEventListener("touchcancel", touchHandler, true);
+    }
+	
     jQuery.fn.arrangeLabels = function (options) {
         var options = options || {};
-        
         if (options.labels === undefined || options.labels === null || options.labels.length === 0) {
             throw "ERROR: Missing data << options.labels >>!";
             return false;
+        }
+        if(options.isTouchDevice === "auto"){
+            options.isTouchDevice = isTouchDevice();
         }
         
         jQuery.fn.arrangeLabels.options = jQuery.extend({}, jQuery.fn.arrangeLabels.defaults, options);
@@ -37,16 +67,24 @@
         }else{
             jQuery(container).html('<div id="sticky-container" class="sticky-container"><div id="scale"></div></div>');
         }
+        if( jQuery.fn.arrangeLabels.options.isTouchDevice ){
+            jQuery('#sticky-container', jQuery(container)).addClass('touch_device');
+            initTouchHandler();
+        }
+        def.pos_x 	= jQuery.fn.arrangeLabels.options.element_pos_x || def.pos_x;
+        def.pos_y 	= jQuery.fn.arrangeLabels.options.element_pos_y || def.pos_y;
+        def.height 	= jQuery.fn.arrangeLabels.options.element_height || def.height;
+        def.width 	= jQuery.fn.arrangeLabels.options.element_width || def.width;
+        _scale.start_X = def.width / 2;
 
         ////EVENTS
-        jQuery("#" + jQuery.fn.arrangeLabels.options.next_button_id).click( jQuery.fn.arrangeLabels.onComplete );
+        jQuery("#" + jQuery.fn.arrangeLabels.options.next_button_id).on("click tap", jQuery.fn.arrangeLabels.onComplete );
         jQuery(window).resize( function(ev){
             jQuery.fn.arrangeLabels.calcDimentions(container);
         } );
     };
-    
-    jQuery.fn.arrangeLabels.calcDimentions = function(container){
 
+    jQuery.fn.arrangeLabels.calcDimentions = function(container){
         var stiky_container = jQuery("#sticky-container");
         var scale = jQuery("#scale");
         var h_line = jQuery("<hr/>");
@@ -373,16 +411,21 @@
     }
 
     jQuery.fn.arrangeLabels.defaults = {
-        labels: [],
-        shuffle: true,
-        labelCustomClass:   '',
+        isTouchDevice:      'auto', // << 'auto', false, true >>
+        element_pos_x:      3,      // int
+        element_pos_y:      150,    // int
+        element_width:      150,    // int
+        element_height:     208,    // int
+        labels:             [],
+        shuffle:            true,
+        labelCustomClass:   '',     // string
         hideLabelsValue:    false,
         simplifyScale:      false,
         scale_min_text:     false,  // string
         scale_max_text:     false,  // string
-        scale_min:    0,
-        scale_max:   10,
-        scale_step:   1,
+        scale_min:          0,      // int
+        scale_max:          10,     // int
+        scale_step:         1,      // int
         next_button_id:     'forwardbutton', // string
         onCompleteCallback: false,  // function
         moveCallback:       false   // function
