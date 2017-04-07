@@ -9,12 +9,12 @@
     _scale.start_X = def.width / 2;
     _scale.end_X = 480;         //px  
     _scale.factor = 46;         //px
-    	
+
     function isTouchDevice() {
-        return 'ontouchstart' in window //  most browsers 
-        || navigator.maxTouchPoints;    //  IE10/11 and Surface
+        return !!('ontouchstart' in window	//  most browsers 
+            || navigator.maxTouchPoints);	//  IE10/11 and Surface
     }
-	
+
     function touchHandler(event) {
         var touch = event.changedTouches[0];
         var simulatedEvent = document.createEvent("MouseEvent");
@@ -32,10 +32,17 @@
     }
 
     function initTouchHandler() {
-        document.getElementById('sticky-container').addEventListener("touchstart", touchHandler, true);
-        document.getElementById('sticky-container').addEventListener("touchmove", touchHandler, true);
-        document.getElementById('sticky-container').addEventListener("touchend", touchHandler, true);
-        document.getElementById('sticky-container').addEventListener("touchcancel", touchHandler, true);
+        if ( typeof window.addEventListener != "undefined" ) {
+            document.getElementById('sticky-container').addEventListener("touchstart", touchHandler, true);
+            document.getElementById('sticky-container').addEventListener("touchmove", touchHandler, true);
+            document.getElementById('sticky-container').addEventListener("touchend", touchHandler, true);
+            document.getElementById('sticky-container').addEventListener("touchcancel", touchHandler, true);
+        } else if ( typeof window.attachEvent != "undefined" ) {
+            document.getElementById('sticky-container').attachEvent("on" + "touchstart", touchHandler);
+            document.getElementById('sticky-container').attachEvent("on" + "touchmove", touchHandler);
+            document.getElementById('sticky-container').attachEvent("on" + "touchend", touchHandler);
+            document.getElementById('sticky-container').attachEvent("on" + "touchcancel", touchHandler);
+        }
     }
 	
     jQuery.fn.arrangeLabels = function (options) {
